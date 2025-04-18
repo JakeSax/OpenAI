@@ -198,7 +198,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let parsingOptions = decoder.userInfo[.parsingOptions] as? ParsingOptions ?? []
         
-        self.id = (try? container.decodeString(forKey: .id, parsingOptions: parsingOptions)) ?? ""
+        self.id = try? container.decodeString(forKey: .id, parsingOptions: parsingOptions)
         self.object = try container.decodeString(forKey: .object, parsingOptions: parsingOptions)
         self.created = try container.decode(TimeInterval.self, forKey: .created)
         self.model = try container.decodeString(forKey: .model, parsingOptions: parsingOptions)
