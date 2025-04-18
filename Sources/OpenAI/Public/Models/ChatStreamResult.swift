@@ -165,7 +165,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
     }
 
     /// A unique identifier for the chat completion. Each chunk has the same ID.
-    public let id: String
+    public let id: String?
     /// The object type, which is always `chat.completion.chunk`.
     public let object: String
     /// The Unix timestamp (in seconds) of when the chat completion was created.
@@ -198,7 +198,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let parsingOptions = decoder.userInfo[.parsingOptions] as? ParsingOptions ?? []
         
-        self.id = try container.decodeString(forKey: .id, parsingOptions: parsingOptions)
+        self.id = (try? container.decodeString(forKey: .id, parsingOptions: parsingOptions)) ?? ""
         self.object = try container.decodeString(forKey: .object, parsingOptions: parsingOptions)
         self.created = try container.decode(TimeInterval.self, forKey: .created)
         self.model = try container.decodeString(forKey: .model, parsingOptions: parsingOptions)
