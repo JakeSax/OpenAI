@@ -167,11 +167,12 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
     /// A unique identifier for the chat completion. Each chunk has the same ID. May be missing
     /// depending on OpenRouter's provider compatibility.
     public let id: String?
-    /// The object type, which is always `chat.completion.chunk`.
+    /// The object type, which is always `chat.completion.chunk`.  May be missing depending
+    /// on OpenRouter's provider compatibility.
     public let object: String?
     /// The Unix timestamp (in seconds) of when the chat completion was created.
     /// Each chunk has the same timestamp. May be missing depending on OpenRouter's provider compatibility.
-    public let created: TimeInterval
+    public let created: TimeInterval?
     /// The model to generate the completion.
     public let model: String
     /// A list of citations for the completion.
@@ -202,7 +203,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
         
         self.id = try? container.decodeString(forKey: .id, parsingOptions: parsingOptions)
         self.object = try? container.decodeString(forKey: .object, parsingOptions: parsingOptions)
-        self.created = try container.decode(TimeInterval.self, forKey: .created)
+        self.created = try? container.decode(TimeInterval.self, forKey: .created)
         self.model = try container.decodeString(forKey: .model, parsingOptions: parsingOptions)
         self.citations = try container.decodeIfPresent([String].self, forKey: .citations)
         self.choices = try container.decode([ChatStreamResult.Choice].self, forKey: .choices)
