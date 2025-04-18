@@ -164,12 +164,13 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
         }
     }
 
-    /// A unique identifier for the chat completion. Each chunk has the same ID.
+    /// A unique identifier for the chat completion. Each chunk has the same ID. May be missing
+    /// depending on OpenRouter's provider compatibility.
     public let id: String?
     /// The object type, which is always `chat.completion.chunk`.
-    public let object: String
+    public let object: String?
     /// The Unix timestamp (in seconds) of when the chat completion was created.
-    /// Each chunk has the same timestamp.
+    /// Each chunk has the same timestamp. May be missing depending on OpenRouter's provider compatibility.
     public let created: TimeInterval
     /// The model to generate the completion.
     public let model: String
@@ -178,7 +179,8 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
     /// A list of chat completion choices.
     /// Can be more than one if `n` is greater than 1.
     public let choices: [Choice]
-    /// This fingerprint represents the backend configuration that the model runs with. Can be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism.
+    /// This fingerprint represents the backend configuration that the model runs with. Can be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism. May be missing
+    /// depending on OpenRouter's provider compatibility.
     public let systemFingerprint: String?
     /// Usage statistics for the completion request.
     public let usage: ChatResult.CompletionUsage?
@@ -199,7 +201,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
         let parsingOptions = decoder.userInfo[.parsingOptions] as? ParsingOptions ?? []
         
         self.id = try? container.decodeString(forKey: .id, parsingOptions: parsingOptions)
-        self.object = try container.decodeString(forKey: .object, parsingOptions: parsingOptions)
+        self.object = try? container.decodeString(forKey: .object, parsingOptions: parsingOptions)
         self.created = try container.decode(TimeInterval.self, forKey: .created)
         self.model = try container.decodeString(forKey: .model, parsingOptions: parsingOptions)
         self.citations = try container.decodeIfPresent([String].self, forKey: .citations)
