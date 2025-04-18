@@ -24,16 +24,16 @@ public protocol OpenAIAsync {
     func assistants() async throws -> AssistantsResult
     func assistants(after: String?) async throws -> AssistantsResult
     func assistantCreate(query: AssistantsQuery) async throws -> AssistantResult
-    func assistantModify(query: AssistantsQuery, assistantId: String) async throws -> AssistantResult
+    func assistantModify(query: AssistantsQuery, assistantID: String) async throws -> AssistantResult
     func threads(query: ThreadsQuery) async throws -> ThreadsResult
     func threadRun(query: ThreadRunQuery) async throws -> RunResult
-    func runs(threadId: String, query: RunsQuery) async throws -> RunResult
-    func runRetrieve(threadId: String, runId: String) async throws -> RunResult
-    func runRetrieveSteps(threadId: String, runId: String) async throws -> RunRetrieveStepsResult
-    func runRetrieveSteps(threadId: String, runId: String, before: String?) async throws -> RunRetrieveStepsResult
-    func runSubmitToolOutputs(threadId: String, runId: String, query: RunToolOutputsQuery) async throws -> RunResult
-    func threadsMessages(threadId: String) async throws -> ThreadsMessagesResult
-    func threadsMessages(threadId: String, before: String?) async throws -> ThreadsMessagesResult
-    func threadsAddMessage(threadId: String, query: MessageQuery) async throws -> ThreadAddMessageResult
+    func runs(threadID: String, query: RunsQuery) async throws -> RunResult
+    func runRetrieve(threadID: String, runID: String) async throws -> RunResult
+    func runRetrieveSteps(threadID: String, runID: String) async throws -> RunRetrieveStepsResult
+    func runRetrieveSteps(threadID: String, runID: String, before: String?) async throws -> RunRetrieveStepsResult
+    func runSubmitToolOutputs(threadID: String, runID: String, query: RunToolOutputsQuery) async throws -> RunResult
+    func threadsMessages(threadID: String) async throws -> ThreadsMessagesResult
+    func threadsMessages(threadID: String, before: String?) async throws -> ThreadsMessagesResult
+    func threadsAddMessage(threadID: String, query: MessageQuery) async throws -> ThreadAddMessageResult
     func files(query: FilesQuery) async throws -> FilesResult
 }

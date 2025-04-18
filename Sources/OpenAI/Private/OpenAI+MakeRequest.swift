@@ -41,11 +41,15 @@ extension OpenAI {
         .init(body: query, url: buildURL(path: .moderations))
     }
     
-    func makeAudioTranscriptionsRequest(query: AudioTranscriptionQuery) -> MultipartFormDataRequest<AudioTranscriptionResult> {
+    func makeAudioTranscriptionsRequest(
+        query: AudioTranscriptionQuery
+    ) -> MultipartFormDataRequest<AudioTranscriptionResult> {
         .init(body: query, url: buildURL(path: .audioTranscriptions))
     }
     
-    func makeAudioTranslationsRequest(query: AudioTranslationQuery) -> MultipartFormDataRequest<AudioTranslationResult> {
+    func makeAudioTranslationsRequest(
+        query: AudioTranslationQuery
+    ) -> MultipartFormDataRequest<AudioTranslationResult> {
         .init(body: query, url: buildURL(path: .audioTranslations))
     }
     
@@ -53,40 +57,29 @@ extension OpenAI {
         .init(body: query, url: buildURL(path: .audioSpeech))
     }
     
-    func makeThreadsAddMessageRequest(_ threadId: String, _ query: MessageQuery) -> AssistantsRequest<ThreadsMessagesResult> {
+    func makeThreadsAddMessageRequest(
+        _ threadID: String,
+        _ query: MessageQuery
+    ) -> AssistantsRequest<ThreadsMessagesResult> {
         .jsonRequest(
             urlBuilder: RunsURLBuilder(
                 configuration: configuration,
                 path: .threadsMessages,
-                threadId: threadId
+                threadID: threadID
             ),
             body: query
         )
     }
     
-    func makeThreadsMessagesRequest(_ threadId: String, before: String?) -> AssistantsRequest<ThreadsMessagesResult> {
+    func makeThreadsMessagesRequest(
+        _ threadID: String,
+        before: String?
+    ) -> AssistantsRequest<ThreadsMessagesResult> {
         .jsonRequest(
-            urlBuilder: RunsURLBuilder(configuration: configuration, path: .threadsMessages, threadId: threadId, before: before),
-            body: nil,
-            method: "GET"
-        )
-    }
-    
-    func makeRunRetrieveRequest(_ threadId: String, _ runId: String) -> AssistantsRequest<RunResult> {
-        .jsonRequest(
-            urlBuilder: RunRetrieveURLBuilder(configuration: configuration, path: .runRetrieve, threadId: threadId, runId: runId),
-            body: nil,
-            method: "GET"
-        )
-    }
-    
-    func makeRunRetrieveStepsRequest(_ threadId: String, _ runId: String, _ before: String?) -> AssistantsRequest<RunRetrieveStepsResult> {
-        .jsonRequest(
-            urlBuilder: RunRetrieveURLBuilder(
+            urlBuilder: RunsURLBuilder(
                 configuration: configuration,
-                path: .runRetrieveSteps,
-                threadId: threadId,
-                runId: runId,
+                path: .threadsMessages,
+                threadID: threadID,
                 before: before
             ),
             body: nil,
@@ -94,40 +87,92 @@ extension OpenAI {
         )
     }
     
-    func makeRunSubmitToolOutputsRequest(_ threadId: String, _ runId: String, _ query: RunToolOutputsQuery) -> AssistantsRequest<RunResult> {
+    func makeRunRetrieveRequest(
+        _ threadID: String,
+        _ runID: String
+    ) -> AssistantsRequest<RunResult> {
+        .jsonRequest(
+            urlBuilder: RunRetrieveURLBuilder(
+                configuration: configuration,
+                path: .runRetrieve,
+                threadID: threadID,
+                runID: runID
+            ),
+            body: nil,
+            method: "GET"
+        )
+    }
+    
+    func makeRunRetrieveStepsRequest(
+        _ threadID: String,
+        _ runID: String,
+        _ before: String?
+    ) -> AssistantsRequest<RunRetrieveStepsResult> {
+        .jsonRequest(
+            urlBuilder: RunRetrieveURLBuilder(
+                configuration: configuration,
+                path: .runRetrieveSteps,
+                threadID: threadID,
+                runID: runID,
+                before: before
+            ),
+            body: nil,
+            method: "GET"
+        )
+    }
+    
+    func makeRunSubmitToolOutputsRequest(
+        _ threadID: String,
+        _ runID: String,
+        _ query: RunToolOutputsQuery
+    ) -> AssistantsRequest<RunResult> {
         .jsonRequest(
             urlBuilder: DefaultURLBuilder(
                 configuration: configuration,
-                path: .Assistants.runSubmitToolOutputs(threadId: threadId, runId: runId).stringValue
+                path: .Assistants.runSubmitToolOutputs(threadID: threadID, runID: runID).stringValue
             ),
             body: query
         )
     }
     
-    func makeRunsRequest(_ threadId: String, _ query: RunsQuery) -> AssistantsRequest<RunResult> {
+    func makeRunsRequest(_ threadID: String, _ query: RunsQuery) -> AssistantsRequest<RunResult> {
         .jsonRequest(
-            urlBuilder: RunsURLBuilder(configuration: configuration, path: .runs, threadId: threadId),
+            urlBuilder: RunsURLBuilder(
+                configuration: configuration,
+                path: .runs,
+                threadID: threadID
+            ),
             body: query
         )
     }
     
     func makeThreadsRequest(_ query: ThreadsQuery) -> AssistantsRequest<ThreadsResult> {
         .jsonRequest(
-            urlBuilder: DefaultURLBuilder(configuration: configuration, path: .Assistants.threads.stringValue),
+            urlBuilder: DefaultURLBuilder(
+                configuration: configuration,
+                path: .Assistants.threads.stringValue
+            ),
             body: query
         )
     }
     
     func makeThreadRunRequest(_ query: ThreadRunQuery) -> AssistantsRequest<RunResult> {
         .jsonRequest(
-            urlBuilder: DefaultURLBuilder(configuration: configuration, path: .Assistants.threadRun.stringValue),
+            urlBuilder: DefaultURLBuilder(
+                configuration: configuration,
+                path: .Assistants.threadRun.stringValue
+            ),
             body: query
         )
     }
     
     func makeAssistantsRequest(_ after: String?) -> AssistantsRequest<AssistantsResult> {
         .jsonRequest(
-            urlBuilder: DefaultURLBuilder(configuration: configuration, path: .Assistants.assistants.stringValue, after: after),
+            urlBuilder: DefaultURLBuilder(
+                configuration: configuration,
+                path: .Assistants.assistants.stringValue,
+                after: after
+            ),
             body: nil,
             method: "GET"
         )
@@ -135,21 +180,31 @@ extension OpenAI {
     
     func makeAssistantCreateRequest(_ query: AssistantsQuery) -> AssistantsRequest<AssistantResult> {
         .jsonRequest(
-            urlBuilder: DefaultURLBuilder(configuration: configuration, path: .Assistants.assistants.stringValue),
+            urlBuilder: DefaultURLBuilder(
+                configuration: configuration,
+                path: .Assistants.assistants.stringValue
+            ),
             body: query
         )
     }
     
-    func makeAssistantModifyRequest(_ assistantId: String, _ query: AssistantsQuery) -> AssistantsRequest<AssistantsResult> {
+    func makeAssistantModifyRequest(_ assistantID: String, _ query: AssistantsQuery) -> AssistantsRequest<AssistantsResult> {
         .jsonRequest(
-            urlBuilder: AssistantsURLBuilder(configuration: configuration, path: .assistantsModify, assistantId: assistantId),
+            urlBuilder: AssistantsURLBuilder(
+                configuration: configuration,
+                path: .assistantsModify,
+                assistantID: assistantID
+            ),
             body: query
         )
     }
     
     func makeFilesRequest(query: FilesQuery) -> AssistantsRequest<FilesResult> {
         .multipartFormDataRequest(
-            urlBuilder: DefaultURLBuilder(configuration: configuration, path: .Assistants.files.stringValue),
+            urlBuilder: DefaultURLBuilder(
+                configuration: configuration,
+                path: .Assistants.files.stringValue
+            ),
             body: query
         )
     }

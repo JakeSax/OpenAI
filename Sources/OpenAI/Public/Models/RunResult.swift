@@ -43,13 +43,13 @@ public struct RunResult: Codable, Equatable, Sendable {
     
     enum CodingKeys: String, CodingKey {
         case id
-        case threadId = "thread_id"
+        case threadID = "thread_id"
         case status
         case requiredAction = "required_action"
     }
 
     public let id: String
-    public let threadId: String
+    public let threadID: String
     public let status: Status
     public let requiredAction: RequiredAction?
 }

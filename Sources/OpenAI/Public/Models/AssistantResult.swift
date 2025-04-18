@@ -41,21 +41,21 @@ public struct ToolResources: Codable, Equatable, Sendable {
 }
 
 public struct FileSearchResources: Codable, Equatable, Sendable {
-    public let vectorStoreIds: [String]
+    public let vectorStoreIDs: [String]
     
     enum CodingKeys: String, CodingKey {
-        case vectorStoreIds = "vector_store_ids"
+        case vectorStoreIDs = "vector_store_ids"
     }
 }
 
 public struct CodeInterpreterResources: Codable, Equatable, Sendable {
-    public let fileIds: [String]
+    public let fileIDs: [String]
     
-    public init(fileIds: [String]) {
-        self.fileIds = fileIds
+    public init(fileIDs: [String]) {
+        self.fileIDs = fileIDs
     }
     
     enum CodingKeys: String, CodingKey {
-        case fileIds = "file_ids"
+        case fileIDs = "file_ids"
     }
 }

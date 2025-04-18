@@ -9,14 +9,14 @@ import Foundation
 
 public struct ThreadRunQuery: Equatable, Codable {
     
-    public let assistantId: String
+    public let assistantID: String
     public let thread: ThreadsQuery
     public let model: Model?
     public let instructions: String?
     public let tools: [Tool]?
 
     enum CodingKeys: String, CodingKey {
-        case assistantId = "assistant_id"
+        case assistantID = "assistant_id"
         case thread
         case model
         case instructions
@@ -24,13 +24,13 @@ public struct ThreadRunQuery: Equatable, Codable {
     }
 
     public init(
-        assistantId: String,
+        assistantID: String,
         thread: ThreadsQuery,
         model: Model? = nil,
         instructions: String? = nil,
         tools: [Tool]? = nil
     ) {
-        self.assistantId = assistantId
+        self.assistantID = assistantID
         self.thread = thread
         self.model = model
         self.instructions = instructions

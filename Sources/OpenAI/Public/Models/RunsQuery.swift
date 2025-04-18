@@ -9,14 +9,13 @@ import Foundation
 
 public struct RunsQuery: Codable, Sendable {
 
-    public let assistantId: String
+    public let assistantID: String
 
     enum CodingKeys: String, CodingKey {
-        case assistantId = "assistant_id"
+        case assistantID = "assistant_id"
     }
     
-    public init(assistantId: String) {
-
-        self.assistantId = assistantId
+    public init(assistantID: String) {
+        self.assistantID = assistantID
     }
 }

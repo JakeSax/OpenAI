@@ -47,7 +47,17 @@ final public class OpenAI: @unchecked Sendable {
         
         public let parsingOptions: ParsingOptions
         
-        public init(token: String?, organizationIdentifier: String? = nil, host: String = "api.openai.com", port: Int = 443, scheme: String = "https", basePath: String = "/v1", timeoutInterval: TimeInterval = 60.0, customHeaders: [String: String] = [:], parsingOptions: ParsingOptions = []) {
+        public init(
+            token: String?,
+            organizationIdentifier: String? = nil,
+            host: String = "api.openai.com",
+            port: Int = 443,
+            scheme: String = "https",
+            basePath: String = "/v1",
+            timeoutInterval: TimeInterval = 60.0,
+            customHeaders: [String: String] = [:],
+            parsingOptions: ParsingOptions = []
+        ) {
             self.token = token
             self.organizationIdentifier = organizationIdentifier
             self.host = host
@@ -125,128 +135,174 @@ final public class OpenAI: @unchecked Sendable {
     }
     
     public func threadsAddMessage(
-        threadId: String,
+        threadID: String,
         query: MessageQuery,
         completion: @escaping @Sendable (Result<ThreadAddMessageResult, Error>) -> Void
     ) -> CancellableRequest {
         performRequest(
-            request: makeThreadsAddMessageRequest(threadId, query),
+            request: makeThreadsAddMessageRequest(threadID, query),
             completion: completion
         )
     }
     
     public func threadsMessages(
-        threadId: String,
+        threadID: String,
         before: String? = nil,
         completion: @escaping @Sendable (Result<ThreadsMessagesResult, Error>) -> Void
     ) -> CancellableRequest {
         performRequest(
-            request: makeThreadsMessagesRequest(threadId, before: before),
+            request: makeThreadsMessagesRequest(threadID, before: before),
             completion: completion
         )
     }
     
-    public func runRetrieve(threadId: String, runId: String, completion: @escaping @Sendable (Result<RunResult, Error>) -> Void) -> CancellableRequest {
+    public func runRetrieve(
+        threadID: String,
+        runID: String,
+        completion: @escaping @Sendable (Result<RunResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
-            request: makeRunRetrieveRequest(threadId, runId),
+            request: makeRunRetrieveRequest(threadID, runID),
             completion: completion
         )
     }
     
     public func runRetrieveSteps(
-        threadId: String,
-        runId: String,
+        threadID: String,
+        runID: String,
         before: String? = nil,
         completion: @escaping @Sendable (Result<RunRetrieveStepsResult, Error>) -> Void
     ) -> CancellableRequest {
         performRequest(
-            request: makeRunRetrieveStepsRequest(threadId, runId, before),
+            request: makeRunRetrieveStepsRequest(threadID, runID, before),
             completion: completion
         )
     }
     
     public func runSubmitToolOutputs(
-        threadId: String,
-        runId: String,
+        threadID: String,
+        runID: String,
         query: RunToolOutputsQuery,
         completion: @escaping @Sendable (Result<RunResult, Error>) -> Void
     ) -> CancellableRequest {
         performRequest(
-            request: makeRunSubmitToolOutputsRequest(threadId, runId, query),
+            request: makeRunSubmitToolOutputsRequest(threadID, runID, query),
             completion: completion
         )
     }
     
-    public func runs(threadId: String, query: RunsQuery, completion: @escaping @Sendable (Result<RunResult, Error>) -> Void) -> CancellableRequest {
+    public func runs(
+        threadID: String,
+        query: RunsQuery,
+        completion: @escaping @Sendable (Result<RunResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
-            request: makeRunsRequest(threadId, query),
+            request: makeRunsRequest(threadID, query),
             completion: completion
         )
     }
 
-    public func threads(query: ThreadsQuery, completion: @escaping @Sendable (Result<ThreadsResult, Error>) -> Void) -> CancellableRequest {
+    public func threads(
+        query: ThreadsQuery,
+        completion: @escaping @Sendable (Result<ThreadsResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
             request: makeThreadsRequest(query),
             completion: completion
         )
     }
     
-    public func threadRun(query: ThreadRunQuery, completion: @escaping @Sendable (Result<RunResult, Error>) -> Void) -> CancellableRequest {
+    public func threadRun(
+        query: ThreadRunQuery,
+        completion: @escaping @Sendable (Result<RunResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
             request: makeThreadRunRequest(query),
             completion: completion
         )
     }
     
-    public func assistants(after: String? = nil, completion: @escaping @Sendable (Result<AssistantsResult, Error>) -> Void) -> CancellableRequest {
+    public func assistants(
+        after: String? = nil,
+        completion: @escaping @Sendable (Result<AssistantsResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
             request: makeAssistantsRequest(after),
             completion: completion
         )
     }
     
-    public func assistantCreate(query: AssistantsQuery, completion: @escaping @Sendable (Result<AssistantResult, Error>) -> Void) -> CancellableRequest {
+    public func assistantCreate(
+        query: AssistantsQuery,
+        completion: @escaping @Sendable (Result<AssistantResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
             request: makeAssistantCreateRequest(query),
             completion: completion
         )
     }
     
-    public func assistantModify(query: AssistantsQuery, assistantId: String, completion: @escaping @Sendable (Result<AssistantResult, Error>) -> Void) -> CancellableRequest {
+    public func assistantModify(
+        query: AssistantsQuery,
+        assistantID: String,
+        completion: @escaping @Sendable (Result<AssistantResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
-            request: makeAssistantModifyRequest(assistantId, query),
+            request: makeAssistantModifyRequest(assistantID, query),
             completion: completion
         )
     }
     
-    public func files(query: FilesQuery, completion: @escaping @Sendable (Result<FilesResult, Error>) -> Void) -> CancellableRequest {
+    public func files(
+        query: FilesQuery,
+        completion: @escaping @Sendable (Result<FilesResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(
             request: makeFilesRequest(query: query),
             completion: completion
         )
     }
 
-    public func images(query: ImagesQuery, completion: @escaping @Sendable (Result<ImagesResult, Error>) -> Void) -> CancellableRequest {
+    public func images(
+        query: ImagesQuery,
+        completion: @escaping @Sendable (Result<ImagesResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeImagesRequest(query: query), completion: completion)
     }
     
-    public func imageEdits(query: ImageEditsQuery, completion: @escaping @Sendable (Result<ImagesResult, Error>) -> Void) -> CancellableRequest {
+    public func imageEdits(
+        query: ImageEditsQuery,
+        completion: @escaping @Sendable (Result<ImagesResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeImageEditsRequest(query: query), completion: completion)
     }
     
-    public func imageVariations(query: ImageVariationsQuery, completion: @escaping @Sendable (Result<ImagesResult, Error>) -> Void) -> CancellableRequest {
+    public func imageVariations(
+        query: ImageVariationsQuery,
+        completion: @escaping @Sendable (Result<ImagesResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeImageVariationsRequest(query: query), completion: completion)
     }
     
-    public func embeddings(query: EmbeddingsQuery, completion: @escaping @Sendable (Result<EmbeddingsResult, Error>) -> Void) -> CancellableRequest {
+    public func embeddings(
+        query: EmbeddingsQuery,
+        completion: @escaping @Sendable (Result<EmbeddingsResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeEmbeddingsRequest(query: query), completion: completion)
     }
     
-    public func chats(query: ChatQuery, completion: @escaping @Sendable (Result<ChatResult, Error>) -> Void) -> CancellableRequest {
+    public func chats(
+        query: ChatQuery,
+        completion: @escaping @Sendable (Result<ChatResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeChatsRequest(query: query.makeNonStreamable()), completion: completion)
     }
     
-    public func chatsStream(query: ChatQuery, onResult: @escaping @Sendable (Result<ChatStreamResult, Error>) -> Void, completion: (@Sendable (Error?) -> Void)?) -> CancellableRequest {
+    public func chatsStream(
+        query: ChatQuery,
+        onResult: @escaping @Sendable (Result<ChatStreamResult, Error>) -> Void,
+        completion: (@Sendable (Error?) -> Void)?
+    ) -> CancellableRequest {
         performStreamingRequest(
             request: JSONRequest<ChatStreamResult>(body: query.makeStreamable(), url: buildURL(path: .chats)),
             onResult: onResult,
@@ -254,32 +310,58 @@ final public class OpenAI: @unchecked Sendable {
         )
     }
     
-    public func model(query: ModelQuery, completion: @escaping @Sendable (Result<ModelResult, Error>) -> Void) -> CancellableRequest {
+    public func model(
+        query: ModelQuery,
+        completion: @escaping @Sendable (Result<ModelResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeModelRequest(query: query), completion: completion)
     }
     
-    public func models(completion: @escaping @Sendable (Result<ModelsResult, Error>) -> Void) -> CancellableRequest {
+    public func models(
+        completion: @escaping @Sendable (
+            Result<
+            ModelsResult,
+            Error
+            >
+        ) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeModelsRequest(), completion: completion)
     }
     
     @available(iOS 13.0, *)
-    public func moderations(query: ModerationsQuery, completion: @escaping @Sendable (Result<ModerationsResult, Error>) -> Void) -> CancellableRequest {
+    public func moderations(
+        query: ModerationsQuery,
+        completion: @escaping @Sendable (Result<ModerationsResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeModerationsRequest(query: query), completion: completion)
     }
     
-    public func audioTranscriptions(query: AudioTranscriptionQuery, completion: @escaping @Sendable (Result<AudioTranscriptionResult, Error>) -> Void) -> CancellableRequest {
+    public func audioTranscriptions(
+        query: AudioTranscriptionQuery,
+        completion: @escaping @Sendable (Result<AudioTranscriptionResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeAudioTranscriptionsRequest(query: query), completion: completion)
     }
     
-    public func audioTranslations(query: AudioTranslationQuery, completion: @escaping @Sendable (Result<AudioTranslationResult, Error>) -> Void) -> CancellableRequest {
+    public func audioTranslations(
+        query: AudioTranslationQuery,
+        completion: @escaping @Sendable (Result<AudioTranslationResult, Error>) -> Void
+    ) -> CancellableRequest {
         performRequest(request: makeAudioTranslationsRequest(query: query), completion: completion)
     }
     
-    public func audioCreateSpeech(query: AudioSpeechQuery, completion: @escaping @Sendable (Result<AudioSpeechResult, Error>) -> Void) -> CancellableRequest {
+    public func audioCreateSpeech(
+        query: AudioSpeechQuery,
+        completion: @escaping @Sendable (Result<AudioSpeechResult, Error>) -> Void
+    ) -> CancellableRequest {
         performSpeechRequest(request: makeAudioCreateSpeechRequest(query: query), completion: completion)
     }
     
-    public func audioCreateSpeechStream(query: AudioSpeechQuery, onResult: @escaping @Sendable (Result<AudioSpeechResult, Error>) -> Void, completion: (@Sendable (Error?) -> Void)?) -> CancellableRequest {
+    public func audioCreateSpeechStream(
+        query: AudioSpeechQuery,
+        onResult: @escaping @Sendable (Result<AudioSpeechResult, Error>) -> Void,
+        completion: (@Sendable (Error?) -> Void)?
+    ) -> CancellableRequest {
         performSpeechStreamingRequest(
             request: JSONRequest<AudioSpeechResult>(body: query, url: buildURL(path: .audioSpeech)),
             onResult: onResult,
@@ -289,7 +371,10 @@ final public class OpenAI: @unchecked Sendable {
 }
 
 extension OpenAI {
-    func performRequest<ResultType: Codable>(request: any URLRequestBuildable, completion: @escaping @Sendable (Result<ResultType, Error>) -> Void) -> CancellableRequest {
+    func performRequest<ResultType: Codable>(
+        request: any URLRequestBuildable,
+        completion: @escaping @Sendable (Result<ResultType, Error>) -> Void
+    ) -> CancellableRequest {
         do {
             let urlRequest = try request.build(configuration: configuration)
             let interceptedRequest = middlewares.reduce(urlRequest) { current, middleware in
@@ -333,7 +418,10 @@ extension OpenAI {
         }
     }
     
-    func performSpeechRequest(request: any URLRequestBuildable, completion: @escaping @Sendable (Result<AudioSpeechResult, Error>) -> Void) -> CancellableRequest {
+    func performSpeechRequest(
+        request: any URLRequestBuildable,
+        completion: @escaping @Sendable (Result<AudioSpeechResult, Error>) -> Void
+    ) -> CancellableRequest {
         do {
             let urlRequest = try request.build(configuration: configuration)
             let interceptedRequest = middlewares.reduce(urlRequest) { current, middleware in
@@ -390,7 +478,10 @@ extension OpenAI {
         }
     }
     
-    func makeDataTask<ResultType: Codable>(forRequest request: URLRequest, completion: @escaping @Sendable (Result<ResultType, Error>) -> Void) -> URLSessionDataTaskProtocol {
+    func makeDataTask<ResultType: Codable>(
+        forRequest request: URLRequest,
+        completion: @escaping @Sendable (Result<ResultType, Error>) -> Void
+    ) -> URLSessionDataTaskProtocol {
         session.dataTask(with: request) { data, response, error in
             if let error {
                 return completion(.failure(error))
@@ -415,7 +506,10 @@ extension OpenAI {
         }
     }
     
-    func makeRawResponseDataTask(forRequest request: URLRequest, completion: @escaping @Sendable (Result<Data, Error>) -> Void) -> URLSessionDataTaskProtocol {
+    func makeRawResponseDataTask(
+        forRequest request: URLRequest,
+        completion: @escaping @Sendable (Result<Data, Error>) -> Void
+    ) -> URLSessionDataTaskProtocol {
         session.dataTask(with: request) { data, response, error in
             if let error {
                 return completion(.failure(error))
@@ -459,18 +553,24 @@ extension OpenAI {
             .buildURL()
     }
 
-    func buildRunsURL(path: String, threadId: String, before: String? = nil) -> URL {
-        RunsURLBuilder(configuration: configuration, path: .init(stringValue: path), threadId: threadId)
+    func buildRunsURL(path: String, threadID: String, before: String? = nil) -> URL {
+        RunsURLBuilder(configuration: configuration, path: .init(stringValue: path), threadID: threadID)
             .buildURL()
     }
 
-    func buildRunRetrieveURL(path: String, threadId: String, runId: String, before: String? = nil) -> URL {
-        RunRetrieveURLBuilder(configuration: configuration, path: .init(stringValue: path), threadId: threadId, runId: runId, before: before)
-            .buildURL()
+    func buildRunRetrieveURL(path: String, threadID: String, runID: String, before: String? = nil) -> URL {
+        RunRetrieveURLBuilder(
+            configuration: configuration,
+            path: .init(stringValue: path),
+            threadID: threadID,
+            runID: runID,
+            before: before
+        )
+        .buildURL()
     }
 
-    func buildAssistantURL(path: APIPath.Assistants, assistantId: String) -> URL {
-        AssistantsURLBuilder(configuration: configuration, path: path, assistantId: assistantId)
+    func buildAssistantURL(path: APIPath.Assistants, assistantID: String) -> URL {
+        AssistantsURLBuilder(configuration: configuration, path: path, assistantID: assistantID)
             .buildURL()
     }
 }
@@ -485,8 +585,8 @@ extension APIPath {
         static let runs = Assistants(stringValue: "/threads/THREAD_ID/runs")
         static let runRetrieve = Assistants(stringValue: "/threads/THREAD_ID/runs/RUN_ID")
         static let runRetrieveSteps = Assistants(stringValue: "/threads/THREAD_ID/runs/RUN_ID/steps")
-        static func runSubmitToolOutputs(threadId: String, runId: String) -> Assistants {
-            Assistants(stringValue: "/threads/\(threadId)/runs/\(runId)/submit_tool_outputs")
+        static func runSubmitToolOutputs(threadID: String, runID: String) -> Assistants {
+            Assistants(stringValue: "/threads/\(threadID)/runs/\(runID)/submit_tool_outputs")
         }
         static let threadsMessages = Assistants(stringValue: "/threads/THREAD_ID/messages")
         static let files = Assistants(stringValue: "/files")

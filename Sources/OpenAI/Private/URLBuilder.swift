@@ -39,11 +39,11 @@ struct DefaultURLBuilder: URLBuilder {
 struct AssistantsURLBuilder: URLBuilder {
     let configuration: OpenAI.Configuration
     let path: APIPath.Assistants
-    let assistantId: String
+    let assistantID: String
     
     func buildURL() -> URL {
         var components = URLComponents.components(perConfiguration: configuration, path: path.stringValue)
-        components.path = components.path.replacingOccurrences(of: "ASST_ID", with: assistantId)
+        components.path = components.path.replacingOccurrences(of: "ASST_ID", with: assistantID)
         return components.urlSafe
     }
 }
@@ -51,19 +51,24 @@ struct AssistantsURLBuilder: URLBuilder {
 struct RunsURLBuilder: URLBuilder {
     private let configuration: OpenAI.Configuration
     private let path: APIPath.Assistants
-    private let threadId: String
+    private let threadID: String
     private let before: String?
     
-    init(configuration: OpenAI.Configuration, path: APIPath.Assistants, threadId: String, before: String? = nil) {
+    init(
+        configuration: OpenAI.Configuration,
+        path: APIPath.Assistants,
+        threadID: String,
+        before: String? = nil
+    ) {
         self.configuration = configuration
         self.path = path
-        self.threadId = threadId
+        self.threadID = threadID
         self.before = before
     }
     
     func buildURL() -> URL {
         var components = URLComponents.components(perConfiguration: configuration, path: path.stringValue)
-        components.path = components.path.replacingOccurrences(of: "THREAD_ID", with: threadId)
+        components.path = components.path.replacingOccurrences(of: "THREAD_ID", with: threadID)
         if let before {
             components.queryItems = [URLQueryItem(name: "before", value: before)]
         }
@@ -74,23 +79,29 @@ struct RunsURLBuilder: URLBuilder {
 struct RunRetrieveURLBuilder: URLBuilder {
     private let configuration: OpenAI.Configuration
     private let path: APIPath.Assistants
-    private let threadId: String
-    private let runId: String
+    private let threadID: String
+    private let runID: String
     private let before: String?
     
-    init(configuration: OpenAI.Configuration, path: APIPath.Assistants, threadId: String, runId: String, before: String? = nil) {
+    init(
+        configuration: OpenAI.Configuration,
+        path: APIPath.Assistants,
+        threadID: String,
+        runID: String,
+        before: String? = nil
+    ) {
         self.configuration = configuration
         self.path = path
-        self.threadId = threadId
-        self.runId = runId
+        self.threadID = threadID
+        self.runID = runID
         self.before = before
     }
     
     func buildURL() -> URL {
         var components = URLComponents.components(perConfiguration: configuration, path: path.stringValue)
         components.path = components.path
-            .replacingOccurrences(of: "THREAD_ID", with: threadId)
-            .replacingOccurrences(of: "RUN_ID", with: runId)
+            .replacingOccurrences(of: "THREAD_ID", with: threadID)
+            .replacingOccurrences(of: "RUN_ID", with: runID)
         
         if let before {
             components.queryItems = [URLQueryItem(name: "before", value: before)]

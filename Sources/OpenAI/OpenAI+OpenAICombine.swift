@@ -135,9 +135,9 @@ extension OpenAI: OpenAICombine {
         )
     }
     
-    public func assistantModify(query: AssistantsQuery, assistantId: String) -> AnyPublisher<AssistantResult, Error> {
+    public func assistantModify(query: AssistantsQuery, assistantID: String) -> AnyPublisher<AssistantResult, Error> {
         performRequestCombine(
-            request: makeAssistantModifyRequest(assistantId, query)
+            request: makeAssistantModifyRequest(assistantID, query)
         )
     }
     
@@ -153,47 +153,47 @@ extension OpenAI: OpenAICombine {
         )
     }
     
-    public func runs(threadId: String, query: RunsQuery) -> AnyPublisher<RunResult, Error> {
+    public func runs(threadID: String, query: RunsQuery) -> AnyPublisher<RunResult, Error> {
         performRequestCombine(
-            request: makeRunsRequest(threadId, query)
+            request: makeRunsRequest(threadID, query)
         )
     }
     
-    public func runRetrieve(threadId: String, runId: String) -> AnyPublisher<RunResult, Error> {
+    public func runRetrieve(threadID: String, runID: String) -> AnyPublisher<RunResult, Error> {
         performRequestCombine(
-            request: makeRunRetrieveRequest(threadId, runId)
+            request: makeRunRetrieveRequest(threadID, runID)
         )
     }
     
-    public func runRetrieveSteps(threadId: String, runId: String) -> AnyPublisher<RunRetrieveStepsResult, Error> {
-        runRetrieveSteps(threadId: threadId, runId: runId, before: nil)
+    public func runRetrieveSteps(threadID: String, runID: String) -> AnyPublisher<RunRetrieveStepsResult, Error> {
+        runRetrieveSteps(threadID: threadID, runID: runID, before: nil)
     }
     
-    public func runRetrieveSteps(threadId: String, runId: String, before: String?) -> AnyPublisher<RunRetrieveStepsResult, Error> {
+    public func runRetrieveSteps(threadID: String, runID: String, before: String?) -> AnyPublisher<RunRetrieveStepsResult, Error> {
         performRequestCombine(
-            request: makeRunRetrieveStepsRequest(threadId, runId, before)
+            request: makeRunRetrieveStepsRequest(threadID, runID, before)
         )
     }
     
-    public func runSubmitToolOutputs(threadId: String, runId: String, query: RunToolOutputsQuery) -> AnyPublisher<RunResult, Error> {
+    public func runSubmitToolOutputs(threadID: String, runID: String, query: RunToolOutputsQuery) -> AnyPublisher<RunResult, Error> {
         performRequestCombine(
-            request: makeRunSubmitToolOutputsRequest(threadId, runId, query)
+            request: makeRunSubmitToolOutputsRequest(threadID, runID, query)
         )
     }
     
-    public func threadsMessages(threadId: String) -> AnyPublisher<ThreadsMessagesResult, any Error> {
-        threadsMessages(threadId: threadId, before: nil)
+    public func threadsMessages(threadID: String) -> AnyPublisher<ThreadsMessagesResult, any Error> {
+        threadsMessages(threadID: threadID, before: nil)
     }
     
-    public func threadsMessages(threadId: String, before: String?) -> AnyPublisher<ThreadsMessagesResult, Error> {
+    public func threadsMessages(threadID: String, before: String?) -> AnyPublisher<ThreadsMessagesResult, Error> {
         performRequestCombine(
-            request: makeThreadsMessagesRequest(threadId, before: before)
+            request: makeThreadsMessagesRequest(threadID, before: before)
         )
     }
     
-    public func threadsAddMessage(threadId: String, query: MessageQuery) -> AnyPublisher<ThreadAddMessageResult, Error> {
+    public func threadsAddMessage(threadID: String, query: MessageQuery) -> AnyPublisher<ThreadAddMessageResult, Error> {
         performRequestCombine(
-            request: makeThreadsAddMessageRequest(threadId, query)
+            request: makeThreadsAddMessageRequest(threadID, query)
         )
     }
     

@@ -9,16 +9,16 @@ import Foundation
 
 public struct RunToolOutputsQuery: Codable, Equatable, Sendable {
     public struct ToolOutput: Codable, Equatable, Sendable {
-        public let toolCallId: String?
+        public let toolCallID: String?
         public let output: String?
         
         enum CodingKeys: String, CodingKey {
-            case toolCallId = "tool_call_id"
+            case toolCallID = "tool_call_id"
             case output
         }
         
-        public init(toolCallId: String?, output: String?) {
-            self.toolCallId = toolCallId
+        public init(toolCallID: String?, output: String?) {
+            self.toolCallID = toolCallID
             self.output = output
         }
     }

@@ -580,7 +580,7 @@ class OpenAITests: XCTestCase {
 
     func testListAssistantQuery() async throws {
         let expectedAssistant = AssistantResult.makeMock()
-        let expectedResult = AssistantsResult(data: [expectedAssistant], firstId: expectedAssistant.id, lastId: expectedAssistant.id, hasMore: false)
+        let expectedResult = AssistantsResult(data: [expectedAssistant], firstID: expectedAssistant.id, lastID: expectedAssistant.id, hasMore: false)
         try self.stub(result: expectedResult)
 
         let result = try await openAI.assistants()
@@ -600,7 +600,7 @@ class OpenAITests: XCTestCase {
         let expectedResult = AssistantResult.makeMock()
         try self.stub(result: expectedResult)
         
-        let result = try await openAI.assistantModify(query: query, assistantId: "asst_9876")
+        let result = try await openAI.assistantModify(query: query, assistantID: "asst_9876")
         XCTAssertEqual(result, expectedResult)
     }
     
@@ -609,7 +609,7 @@ class OpenAITests: XCTestCase {
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
         
-        let apiError: APIError = try await XCTExpectError { try await openAI.assistantModify(query: query, assistantId: "asst_9876") }
+        let apiError: APIError = try await XCTExpectError { try await openAI.assistantModify(query: query, assistantID: "asst_9876") }
         XCTAssertEqual(inError, apiError)
     }
 
@@ -633,8 +633,8 @@ class OpenAITests: XCTestCase {
     }
     
     func testThreadRunQuery() async throws {
-        let query = ThreadRunQuery(assistantId: "asst_7654321", thread: .init(messages: [ChatQuery.ChatCompletionMessageParam(role: .user, content: "Hello, What is AI?")!]))
-        let expectedResult = RunResult(id: "run_1234", threadId: "thread_1234", status: .completed, requiredAction: nil)
+        let query = ThreadRunQuery(assistantID: "asst_7654321", thread: .init(messages: [ChatQuery.ChatCompletionMessageParam(role: .user, content: "Hello, What is AI?")!]))
+        let expectedResult = RunResult(id: "run_1234", threadID: "thread_1234", status: .completed, requiredAction: nil)
         try self.stub(result: expectedResult)
         
         let result = try await openAI.threadRun(query: query)
@@ -642,7 +642,7 @@ class OpenAITests: XCTestCase {
     }
 
     func testThreadRunQueryError() async throws {
-        let query = ThreadRunQuery(assistantId: "asst_7654321", thread: .init(messages: [ChatQuery.ChatCompletionMessageParam(role: .user, content: "Hello, What is AI?")!]))
+        let query = ThreadRunQuery(assistantID: "asst_7654321", thread: .init(messages: [ChatQuery.ChatCompletionMessageParam(role: .user, content: "Hello, What is AI?")!]))
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
         
@@ -651,28 +651,28 @@ class OpenAITests: XCTestCase {
     }
     
     func testRunsQuery() async throws {
-        let query = RunsQuery(assistantId: "asst_7654321")
-        let expectedResult = RunResult(id: "run_1234", threadId: "thread_1234", status: .completed, requiredAction: nil)
+        let query = RunsQuery(assistantID: "asst_7654321")
+        let expectedResult = RunResult(id: "run_1234", threadID: "thread_1234", status: .completed, requiredAction: nil)
         try self.stub(result: expectedResult)
 
-        let result = try await openAI.runs(threadId: "thread_1234", query: query)
+        let result = try await openAI.runs(threadID: "thread_1234", query: query)
         XCTAssertEqual(result, expectedResult)
     }
 
     func testRunsQueryError() async throws {
-        let query = RunsQuery(assistantId: "asst_7654321")
+        let query = RunsQuery(assistantID: "asst_7654321")
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
 
-        let apiError: APIError = try await XCTExpectError { try await openAI.runs(threadId: "thread_1234", query: query) }
+        let apiError: APIError = try await XCTExpectError { try await openAI.runs(threadID: "thread_1234", query: query) }
         XCTAssertEqual(inError, apiError)
     }
 
     func testRunRetrieveQuery() async throws {
-        let expectedResult = RunResult(id: "run_1234", threadId: "thread_1234", status: .inProgress, requiredAction: nil)
+        let expectedResult = RunResult(id: "run_1234", threadID: "thread_1234", status: .inProgress, requiredAction: nil)
         try self.stub(result: expectedResult)
 
-        let result = try await openAI.runRetrieve(threadId: "thread_1234", runId: "run_1234")
+        let result = try await openAI.runRetrieve(threadID: "thread_1234", runID: "run_1234")
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -680,7 +680,7 @@ class OpenAITests: XCTestCase {
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
 
-        let apiError: APIError = try await XCTExpectError { try await openAI.runRetrieve(threadId: "thread_1234", runId: "run_1234") }
+        let apiError: APIError = try await XCTExpectError { try await openAI.runRetrieve(threadID: "thread_1234", runID: "run_1234") }
         XCTAssertEqual(inError, apiError)
     }
     
@@ -688,7 +688,7 @@ class OpenAITests: XCTestCase {
         let expectedResult = RunRetrieveStepsResult(data: [.init(id: "step_1234", stepDetails: .init(toolCalls: [.init(id: "tool_456", type: .fileSearch, codeInterpreter: nil, function: nil)]))])
         try self.stub(result: expectedResult)
         
-        let result = try await openAI.runRetrieveSteps(threadId: "thread_1234", runId: "run_1234")
+        let result = try await openAI.runRetrieveSteps(threadID: "thread_1234", runID: "run_1234")
         XCTAssertEqual(result, expectedResult)
     }
     
@@ -696,25 +696,25 @@ class OpenAITests: XCTestCase {
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
         
-        let apiError: APIError = try await XCTExpectError { try await openAI.runRetrieveSteps(threadId: "thread_1234", runId: "run_1234") }
+        let apiError: APIError = try await XCTExpectError { try await openAI.runRetrieveSteps(threadID: "thread_1234", runID: "run_1234") }
         XCTAssertEqual(inError, apiError)
     }
     
     func testRunSubmitToolOutputsQuery() async throws {
-        let query = RunToolOutputsQuery(toolOutputs: [.init(toolCallId: "call_123", output: "Success")])
-        let expectedResult = RunResult(id: "run_123", threadId: "thread_456", status: .inProgress, requiredAction: nil)
+        let query = RunToolOutputsQuery(toolOutputs: [.init(toolCallID: "call_123", output: "Success")])
+        let expectedResult = RunResult(id: "run_123", threadID: "thread_456", status: .inProgress, requiredAction: nil)
         try self.stub(result: expectedResult)
         
-        let result = try await openAI.runSubmitToolOutputs(threadId: "thread_456", runId: "run_123", query: query)
+        let result = try await openAI.runSubmitToolOutputs(threadID: "thread_456", runID: "run_123", query: query)
         XCTAssertEqual(result, expectedResult)
     }
     
     func testRunSubmitToolOutputsQueryError() async throws {
-        let query = RunToolOutputsQuery(toolOutputs: [.init(toolCallId: "call_123", output: "Success")])
+        let query = RunToolOutputsQuery(toolOutputs: [.init(toolCallID: "call_123", output: "Success")])
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
         
-        let apiError: APIError = try await XCTExpectError { try await openAI.runSubmitToolOutputs(threadId: "thread_456", runId: "run_123", query: query) }
+        let apiError: APIError = try await XCTExpectError { try await openAI.runSubmitToolOutputs(threadID: "thread_456", runID: "run_123", query: query) }
         XCTAssertEqual(inError, apiError)
     }
     
@@ -723,7 +723,7 @@ class OpenAITests: XCTestCase {
         let expectedResult = ThreadAddMessageResult(id: "message_1234")
         try self.stub(result: expectedResult)
         
-        let result = try await openAI.threadsAddMessage(threadId: "thread_1234", query: query)
+        let result = try await openAI.threadsAddMessage(threadID: "thread_1234", query: query)
         XCTAssertEqual(result, expectedResult)
     }
     
@@ -732,7 +732,7 @@ class OpenAITests: XCTestCase {
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
         
-        let apiError: APIError = try await XCTExpectError { try await openAI.threadsAddMessage(threadId: "thread_1234", query: query) }
+        let apiError: APIError = try await XCTExpectError { try await openAI.threadsAddMessage(threadID: "thread_1234", query: query) }
         XCTAssertEqual(inError, apiError)
     }
 
@@ -740,7 +740,7 @@ class OpenAITests: XCTestCase {
         let expectedResult = ThreadsMessagesResult(data: [ThreadsMessagesResult.ThreadsMessage(id: "thread_1234", role: ChatQuery.ChatCompletionMessageParam.Role.user, content: [ThreadsMessagesResult.ThreadsMessage.ThreadsMessageContent(type: .text, text: ThreadsMessagesResult.ThreadsMessage.ThreadsMessageContent.ThreadsMessageContentText(value: "Hello, What is AI?"), imageFile: nil)])])
         try self.stub(result: expectedResult)
 
-        let result = try await openAI.threadsMessages(threadId: "thread_1234")
+        let result = try await openAI.threadsMessages(threadID: "thread_1234")
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -748,7 +748,7 @@ class OpenAITests: XCTestCase {
         let inError = APIError(message: "foo", type: "bar", param: "baz", code: "100")
         self.stub(error: inError)
 
-        let apiError: APIError = try await XCTExpectError { try await openAI.threadsMessages(threadId: "thread_1234") }
+        let apiError: APIError = try await XCTExpectError { try await openAI.threadsMessages(threadID: "thread_1234") }
         XCTAssertEqual(inError, apiError)
     }
 
@@ -775,21 +775,21 @@ class OpenAITests: XCTestCase {
     func testCustomRunsURLBuilt() {
         let configuration = OpenAI.Configuration(token: "foo", organizationIdentifier: "bar", host: "my.host.com", timeoutInterval: 14)
         let openAI = OpenAI(configuration: configuration, session: self.urlSession, streamingSessionFactory: MockStreamingSessionFactory())
-        let completionsURL = openAI.buildRunsURL(path: APIPath.Assistants.runs.stringValue, threadId: "thread_4321")
+        let completionsURL = openAI.buildRunsURL(path: APIPath.Assistants.runs.stringValue, threadID: "thread_4321")
         XCTAssertEqual(completionsURL, URL(string: "https://my.host.com:443/v1/threads/thread_4321/runs"))
     }
 
     func testCustomRunsRetrieveURLBuilt() {
         let configuration = OpenAI.Configuration(token: "foo", organizationIdentifier: "bar", host: "my.host.com", timeoutInterval: 14)
         let openAI = OpenAI(configuration: configuration, session: self.urlSession, streamingSessionFactory: MockStreamingSessionFactory())
-        let completionsURL = openAI.buildRunRetrieveURL(path: APIPath.Assistants.runRetrieve.stringValue, threadId: "thread_4321", runId: "run_1234")
+        let completionsURL = openAI.buildRunRetrieveURL(path: APIPath.Assistants.runRetrieve.stringValue, threadID: "thread_4321", runID: "run_1234")
         XCTAssertEqual(completionsURL, URL(string: "https://my.host.com:443/v1/threads/thread_4321/runs/run_1234"))
     }
 
     func testCustomRunRetrieveStepsURLBuilt() {
         let configuration = OpenAI.Configuration(token: "foo", organizationIdentifier: "bar", host: "my.host.com", timeoutInterval: 14)
         let openAI = OpenAI(configuration: configuration, session: self.urlSession, streamingSessionFactory: MockStreamingSessionFactory())
-        let completionsURL = openAI.buildRunRetrieveURL(path: APIPath.Assistants.runRetrieveSteps.stringValue, threadId: "thread_4321", runId: "run_1234")
+        let completionsURL = openAI.buildRunRetrieveURL(path: APIPath.Assistants.runRetrieveSteps.stringValue, threadID: "thread_4321", runID: "run_1234")
         XCTAssertEqual(completionsURL, URL(string: "https://my.host.com:443/v1/threads/thread_4321/runs/run_1234/steps"))
     }
     

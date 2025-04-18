@@ -24,10 +24,10 @@ public struct ThreadsMessagesResult: Codable, Equatable, Sendable {
 
             public struct ImageFileContentText: Codable, Equatable {
 
-                public let fildId: String
+                public let fileID: String
 
                 enum CodingKeys: String, CodingKey {
-                    case fildId = "file_id"
+                    case fileID = "file_id"
                 }
             }
             

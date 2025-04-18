@@ -567,8 +567,8 @@ class OpenAITestsDecoder: XCTestCase {
                 .init(id: "asst_abc123", name: "Coding Tutor", description: nil, instructions: "You are a helpful assistant designed to make me better at coding!", tools: [], toolResources: nil),
                 .init(id: "asst_abc456", name: "My Assistant", description: nil, instructions: "You are a helpful assistant designed to teach me about AI!", tools: [], toolResources: nil),
             ],
-            firstId: "asst_abc123", 
-            lastId: "asst_abc789",
+            firstID: "asst_abc123", 
+            lastID: "asst_abc789",
             hasMore: false
         )
         
@@ -619,7 +619,7 @@ class OpenAITestsDecoder: XCTestCase {
         
         let expectedValue = RunResult(
             id: "run_1a",
-            threadId: "thread_2b",
+            threadID: "thread_2b",
             status: .requiresAction,
             requiredAction: .init(
                 submitToolOutputs: .init(toolCalls: [.init(id: "tool_abc890", type: "function", function: .init(name: "print", arguments: "{\"text\": \"hello\"}"))])
@@ -632,7 +632,7 @@ class OpenAITestsDecoder: XCTestCase {
     func testRunToolOutputsQuery() async throws {
         let runToolOutputsQuery = RunToolOutputsQuery(
             toolOutputs: [
-                .init(toolCallId: "call_abc0", output: "success")
+                .init(toolCallID: "call_abc0", output: "success")
             ]
         )
         
@@ -652,7 +652,7 @@ class OpenAITestsDecoder: XCTestCase {
     
     func testThreadRunQuery() async throws {
         let threadRunQuery = ThreadRunQuery(
-            assistantId: "asst_abc123",
+            assistantID: "asst_abc123",
             thread: .init(
                 messages: [.init(role: .user, content: "Explain deep learning to a 5 year old.")!]
             )

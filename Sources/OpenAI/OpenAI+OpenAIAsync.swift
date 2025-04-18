@@ -135,9 +135,9 @@ extension OpenAI: OpenAIAsync {
         )
     }
     
-    public func assistantModify(query: AssistantsQuery, assistantId: String) async throws -> AssistantResult {
+    public func assistantModify(query: AssistantsQuery, assistantID: String) async throws -> AssistantResult {
         try await performRequestAsync(
-            request: makeAssistantModifyRequest(assistantId, query)
+            request: makeAssistantModifyRequest(assistantID, query)
         )
     }
     
@@ -153,49 +153,49 @@ extension OpenAI: OpenAIAsync {
         )
     }
     
-    public func runs(threadId: String,query: RunsQuery) async throws -> RunResult {
+    public func runs(threadID: String,query: RunsQuery) async throws -> RunResult {
         try await performRequestAsync(
-            request: makeRunsRequest(threadId, query)
+            request: makeRunsRequest(threadID, query)
         )
     }
     
-    public func runRetrieve(threadId: String, runId: String) async throws -> RunResult {
+    public func runRetrieve(threadID: String, runID: String) async throws -> RunResult {
         try await performRequestAsync(
-            request: makeRunRetrieveRequest(threadId, runId)
+            request: makeRunRetrieveRequest(threadID, runID)
         )
     }
     
-    public func runRetrieveSteps(threadId: String, runId: String) async throws -> RunRetrieveStepsResult {
-        try await runRetrieveSteps(threadId: threadId, runId: runId, before: nil)
+    public func runRetrieveSteps(threadID: String, runID: String) async throws -> RunRetrieveStepsResult {
+        try await runRetrieveSteps(threadID: threadID, runID: runID, before: nil)
     }
     
-    public func runRetrieveSteps(threadId: String, runId: String, before: String?) async throws -> RunRetrieveStepsResult {
+    public func runRetrieveSteps(threadID: String, runID: String, before: String?) async throws -> RunRetrieveStepsResult {
         try await performRequestAsync(
-            request: makeRunRetrieveStepsRequest(threadId, runId, before)
+            request: makeRunRetrieveStepsRequest(threadID, runID, before)
         )
     }
     
-    public func runSubmitToolOutputs(threadId: String, runId: String, query: RunToolOutputsQuery) async throws -> RunResult {
+    public func runSubmitToolOutputs(threadID: String, runID: String, query: RunToolOutputsQuery) async throws -> RunResult {
         try await performRequestAsync(
-            request: makeRunSubmitToolOutputsRequest(threadId, runId, query)
+            request: makeRunSubmitToolOutputsRequest(threadID, runID, query)
         )
     }
     
-    public func threadsMessages(threadId: String) async throws -> ThreadsMessagesResult {
+    public func threadsMessages(threadID: String) async throws -> ThreadsMessagesResult {
         try await performRequestAsync(
-            request: makeThreadsMessagesRequest(threadId, before: nil)
+            request: makeThreadsMessagesRequest(threadID, before: nil)
         )
     }
     
-    public func threadsMessages(threadId: String, before: String?) async throws -> ThreadsMessagesResult {
+    public func threadsMessages(threadID: String, before: String?) async throws -> ThreadsMessagesResult {
         try await performRequestAsync(
-            request: makeThreadsMessagesRequest(threadId, before: before)
+            request: makeThreadsMessagesRequest(threadID, before: before)
         )
     }
     
-    public func threadsAddMessage(threadId: String, query: MessageQuery) async throws -> ThreadAddMessageResult {
+    public func threadsAddMessage(threadID: String, query: MessageQuery) async throws -> ThreadAddMessageResult {
         try await performRequestAsync(
-            request: makeThreadsAddMessageRequest(threadId, query)
+            request: makeThreadsAddMessageRequest(threadID, query)
         )
     }
     

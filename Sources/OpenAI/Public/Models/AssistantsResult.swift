@@ -10,14 +10,14 @@ import Foundation
 public struct AssistantsResult: Codable, Equatable, Sendable {
 
     public let data: [AssistantResult]?
-    public let firstId: String?
-    public let lastId: String?
+    public let firstID: String?
+    public let lastID: String?
     public let hasMore: Bool
 
     enum CodingKeys: String, CodingKey {
         case data
-        case firstId = "first_id"
-        case lastId = "last_id"
+        case firstID = "first_id"
+        case lastID = "last_id"
         case hasMore = "has_more"
     }
 }

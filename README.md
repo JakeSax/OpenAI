@@ -970,7 +970,7 @@ openAI.assistantCreate(query: query) { result in
 Example: Modify Assistant
 ```swift
 let query = AssistantsQuery(model: Model.gpt4_o_mini, name: name, description: description, instructions: instructions, tools: tools, toolResources: toolResources)
-openAI.assistantModify(query: query, assistantId: "asst_1234") { result in
+openAI.assistantModify(query: query, assistantID: "asst_1234") { result in
     //Handle response here
 }
 ```
@@ -1003,7 +1003,7 @@ openAI.threads(query: threadsQuery) { result in
 Example: Create and Run Thread
 ```swift
 let threadsQuery = ThreadQuery(messages: [Chat(role: message.role, content: message.content)])
-let threadRunQuery = ThreadRunQuery(assistantId: "asst_1234"  thread: threadsQuery)
+let threadRunQuery = ThreadRunQuery(assistantID: "asst_1234"  thread: threadsQuery)
 openAI.threadRun(query: threadRunQuery) { result in
   //Handle response here
 }
@@ -1015,7 +1015,7 @@ Review [Messages Documentation](https://platform.openai.com/docs/api-reference/m
 
 Example: Get Threads Messages
 ```swift
-openAI.threadsMessages(threadId: currentThreadId) { result in
+openAI.threadsMessages(threadID: currentThreadId) { result in
   //Handle response here
 }
 ```
@@ -1025,7 +1025,7 @@ openAI.threadsMessages(threadId: currentThreadId) { result in
 Example: Add Message to Thread
 ```swift
 let query = MessageQuery(role: message.role.rawValue, content: message.content)
-openAI.threadsAddMessage(threadId: currentThreadId, query: query) { result in
+openAI.threadsAddMessage(threadID: currentThreadId, query: query) { result in
   //Handle response here
 }
 ```
@@ -1038,8 +1038,8 @@ Review [Runs Documentation](https://platform.openai.com/docs/api-reference/runs)
 
 Example: Create Run
 ```swift
-let runsQuery = RunsQuery(assistantId:  currentAssistantId)
-openAI.runs(threadId: threadsResult.id, query: runsQuery) { result in
+let runsQuery = RunsQuery(assistantID:  currentAssistantId)
+openAI.runs(threadID: threadsResult.id, query: runsQuery) { result in
   //Handle response here
 }
 ```
@@ -1048,7 +1048,7 @@ openAI.runs(threadId: threadsResult.id, query: runsQuery) { result in
 
 Example: Retrieve Run
 ```swift
-openAI.runRetrieve(threadId: currentThreadId, runId: currentRunId) { result in
+openAI.runRetrieve(threadID: currentThreadId, runID: currentRunId) { result in
   //Handle response here
 }
 ```
@@ -1057,7 +1057,7 @@ openAI.runRetrieve(threadId: currentThreadId, runId: currentRunId) { result in
 
 Example: Retrieve Run Steps
 ```swift
-openAI.runRetrieveSteps(threadId: currentThreadId, runId: currentRunId) { result in
+openAI.runRetrieveSteps(threadID: currentThreadId, runID: currentRunId) { result in
   //Handle response here
 }
 ```
@@ -1066,9 +1066,9 @@ openAI.runRetrieveSteps(threadId: currentThreadId, runId: currentRunId) { result
 
 Example: Submit Tool Outputs for Run
 ```swift
-let output = RunToolOutputsQuery.ToolOutput(toolCallId: "call123", output: "Success")
+let output = RunToolOutputsQuery.ToolOutput(toolCallID: "call123", output: "Success")
 let query = RunToolOutputsQuery(toolOutputs: [output])
-openAI.runSubmitToolOutputs(threadId: currentThreadId, runId: currentRunId, query: query) { result in
+openAI.runSubmitToolOutputs(threadID: currentThreadId, runID: currentRunId, query: query) { result in
   //Handle response here
 }
 ```

@@ -187,10 +187,10 @@ public struct ChatQuery: Equatable, Codable, Streamable, Sendable {
             }
         }}
 
-        public var toolCallId: String? { get {
+        public var toolCallID: String? { get {
             switch self {
             case .tool(let toolMessage):
-                return toolMessage.toolCallId
+                return toolMessage.toolCallID
             default:
                 return nil
             }
@@ -210,7 +210,7 @@ public struct ChatQuery: Equatable, Codable, Streamable, Sendable {
             content: String? = nil,
             name: String? = nil,
             toolCalls: [Self.AssistantMessageParam.ToolCallParam]? = nil,
-            toolCallId: String? = nil
+            toolCallID: String? = nil
         ) {
             switch role {
             case .system:
@@ -234,8 +234,8 @@ public struct ChatQuery: Equatable, Codable, Streamable, Sendable {
             case .assistant:
                 self = .assistant(.init(content: content, name: name, toolCalls: toolCalls))
             case .tool:
-                if let content, let toolCallId {
-                    self = .tool(.init(content: content, toolCallId: toolCallId))
+                if let content, let toolCallID {
+                    self = .tool(.init(content: content, toolCallID: toolCallID))
                 } else {
                     return nil
                 }
@@ -312,10 +312,10 @@ public struct ChatQuery: Equatable, Codable, Streamable, Sendable {
         private init?(
             content: String,
             role: Role,
-            toolCallId: String
+            toolCallID: String
         ) {
             if role == .tool {
-                self = .tool(.init(content: content, toolCallId: toolCallId))
+                self = .tool(.init(content: content, toolCallID: toolCallID))
             } else {
                 return nil
             }
@@ -758,20 +758,20 @@ public struct ChatQuery: Equatable, Codable, Streamable, Sendable {
             /// The role of the messages author, in this case tool.
             public let role: Self.Role = .tool
             /// Tool call that this message is responding to.
-            public let toolCallId: String
+            public let toolCallID: String
 
             public init(
                 content: String,
-                toolCallId: String
+                toolCallID: String
             ) {
                 self.content = content
-                self.toolCallId = toolCallId
+                self.toolCallID = toolCallID
             }
 
             public enum CodingKeys: String, CodingKey {
                 case content
                 case role
-                case toolCallId = "tool_call_id"
+                case toolCallID = "tool_call_id"
             }
         }
 

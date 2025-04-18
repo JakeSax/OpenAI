@@ -26,17 +26,17 @@ public protocol OpenAICombine {
     func assistants() -> AnyPublisher<AssistantsResult, Error>
     func assistants(after: String?) -> AnyPublisher<AssistantsResult, Error>
     func assistantCreate(query: AssistantsQuery) -> AnyPublisher<AssistantResult, Error>
-    func assistantModify(query: AssistantsQuery, assistantId: String) -> AnyPublisher<AssistantResult, Error>
+    func assistantModify(query: AssistantsQuery, assistantID: String) -> AnyPublisher<AssistantResult, Error>
     func threads(query: ThreadsQuery) -> AnyPublisher<ThreadsResult, Error>
     func threadRun(query: ThreadRunQuery) -> AnyPublisher<RunResult, Error>
-    func runs(threadId: String, query: RunsQuery) -> AnyPublisher<RunResult, Error>
-    func runRetrieve(threadId: String, runId: String) -> AnyPublisher<RunResult, Error>
-    func runRetrieveSteps(threadId: String, runId: String) -> AnyPublisher<RunRetrieveStepsResult, Error>
-    func runRetrieveSteps(threadId: String, runId: String, before: String?) -> AnyPublisher<RunRetrieveStepsResult, Error>
-    func runSubmitToolOutputs(threadId: String, runId: String, query: RunToolOutputsQuery) -> AnyPublisher<RunResult, Error>
-    func threadsMessages(threadId: String) -> AnyPublisher<ThreadsMessagesResult, Error>
-    func threadsMessages(threadId: String, before: String?) -> AnyPublisher<ThreadsMessagesResult, Error>
-    func threadsAddMessage(threadId: String, query: MessageQuery) -> AnyPublisher<ThreadAddMessageResult, Error>
+    func runs(threadID: String, query: RunsQuery) -> AnyPublisher<RunResult, Error>
+    func runRetrieve(threadID: String, runID: String) -> AnyPublisher<RunResult, Error>
+    func runRetrieveSteps(threadID: String, runID: String) -> AnyPublisher<RunRetrieveStepsResult, Error>
+    func runRetrieveSteps(threadID: String, runID: String, before: String?) -> AnyPublisher<RunRetrieveStepsResult, Error>
+    func runSubmitToolOutputs(threadID: String, runID: String, query: RunToolOutputsQuery) -> AnyPublisher<RunResult, Error>
+    func threadsMessages(threadID: String) -> AnyPublisher<ThreadsMessagesResult, Error>
+    func threadsMessages(threadID: String, before: String?) -> AnyPublisher<ThreadsMessagesResult, Error>
+    func threadsAddMessage(threadID: String, query: MessageQuery) -> AnyPublisher<ThreadAddMessageResult, Error>
     func files(query: FilesQuery) -> AnyPublisher<FilesResult, Error>
 }
 #endif

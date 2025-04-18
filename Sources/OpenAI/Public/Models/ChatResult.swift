@@ -205,7 +205,7 @@ public struct ChatResult: Codable, Equatable, Sendable {
     public let serviceTier: String?
     /// This fingerprint represents the backend configuration that the model runs with.
     /// Can be used in conjunction with the seed request parameter to understand when backend changes have been made that might impact determinism.
-    public let systemFingerprint: String
+    public let systemFingerprint: String?
     /// A list of chat completion choices. Can be more than one if n is greater than 1.
     public let choices: [Choice]
     /// Usage statistics for the completion request.
@@ -230,7 +230,17 @@ public struct ChatResult: Codable, Equatable, Sendable {
         case citations
     }
     
-    init(id: String, created: Int, model: String, object: String, serviceTier: String? = nil, systemFingerprint: String, choices: [Choice], usage: Self.CompletionUsage? = nil, citations: [String]? = nil) {
+    init(
+        id: String,
+        created: Int,
+        model: String,
+        object: String,
+        serviceTier: String? = nil,
+        systemFingerprint: String,
+        choices: [Choice],
+        usage: Self.CompletionUsage? = nil,
+        citations: [String]? = nil
+    ) {
         self.id = id
         self.created = created
         self.model = model
@@ -251,7 +261,10 @@ public struct ChatResult: Codable, Equatable, Sendable {
         self.model = try container.decodeString(forKey: .model, parsingOptions: parsingOptions)
         self.choices = try container.decode([ChatResult.Choice].self, forKey: .choices)
         self.serviceTier = try container.decodeIfPresent(String.self, forKey: .serviceTier)
-        self.systemFingerprint = try container.decodeString(forKey: .systemFingerprint, parsingOptions: parsingOptions)
+        self.systemFingerprint = try? container.decodeString(
+            forKey: .systemFingerprint,
+            parsingOptions: parsingOptions
+        )
         self.usage = try container.decodeIfPresent(ChatResult.CompletionUsage.self, forKey: .usage)
         self.citations = try container.decodeIfPresent([String].self, forKey: .citations)
     }
