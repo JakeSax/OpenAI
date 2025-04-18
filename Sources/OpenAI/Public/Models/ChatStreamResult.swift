@@ -179,7 +179,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
     public let citations: [String]?
     /// A list of chat completion choices.
     /// Can be more than one if `n` is greater than 1.
-    public let choices: [Choice]
+    public let choices: [Choice]?
     /// This fingerprint represents the backend configuration that the model runs with. Can be used in conjunction with the `seed` request parameter to understand when backend changes have been made that might impact determinism. May be missing
     /// depending on OpenRouter's provider compatibility.
     public let systemFingerprint: String?
@@ -206,7 +206,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
         self.created = try? container.decode(TimeInterval.self, forKey: .created)
         self.model = try? container.decodeString(forKey: .model, parsingOptions: parsingOptions)
         self.citations = try container.decodeIfPresent([String].self, forKey: .citations)
-        self.choices = try container.decode([ChatStreamResult.Choice].self, forKey: .choices)
+        self.choices = try container.decodeIfPresent([ChatStreamResult.Choice].self, forKey: .choices)
         self.systemFingerprint = try? container.decodeString(
             forKey: .systemFingerprint,
             parsingOptions: parsingOptions
